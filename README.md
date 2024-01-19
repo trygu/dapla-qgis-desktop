@@ -1,6 +1,3 @@
-Certainly! Here's an updated README.md with a mention of the project being created for running in Onyxia:
-
-```markdown
 # dapla-qgis-desktop
 
 This project allows you to run QGIS, a popular open-source Geographic Information System (GIS) software, within a Docker container using noVNC for remote desktop access. It has been created with the intention of being compatible with Onyxia (onyxia.sh), a platform for easily deploying and managing data analysis environments.
