@@ -18,7 +18,6 @@ xhost +
 
 # Start Openbox
 openbox-session &
-sleep 5
 
 # Start VNC server
 x11vnc -forever -nopw -create -display :1 &

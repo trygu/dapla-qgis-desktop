@@ -46,6 +46,12 @@ WORKDIR /home/dapla
 RUN mkdir -p /home/dapla/.local/share/QGIS/QGIS3/profiles/default/QGIS/
 COPY ./resources/qgis3.ini /home/dapla/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini
 
+RUN mkdir -p /home/dapla/.config/openbox/
+COPY ./resources/rc.xml /home/dapla/.config/openbox
+
+# Copy example data
+COPY ./resources/*.parquet /home/dapla/
+
 # Set the DISPLAY environment variable
 ENV DISPLAY=:1
 
