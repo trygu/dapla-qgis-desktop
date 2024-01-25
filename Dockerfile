@@ -28,8 +28,6 @@ ENV HOME=/home/dapla
 RUN chown -R dapla:dapla /home/dapla /usr/share/novnc
 
 COPY --chown=dapla:dapla ./resources/init.sh /home/dapla
-COPY --chown=dapla:dapla ./resources/kart.ssb.no-wfs.xml /home/dapla
-COPY --chown=dapla:dapla ./resources/kart.ssb.no-wms.xml /home/dapla
 
 # Change owner 
 RUN chown -R dapla:dapla /usr/share/qgis
@@ -39,6 +37,10 @@ USER dapla
 
 # Set the working directory to the home directory
 WORKDIR /home/dapla
+
+# Pre-configure QGis3: Add more stuff to qgis3.ini if you want more.
+RUN mkdir -p /home/dapla/.local/share/QGIS/QGIS3/profiles/default/QGIS/
+COPY ./resources/qgis3.ini /home/dapla/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini
 
 # Set the DISPLAY environment variable
 ENV DISPLAY=:1
