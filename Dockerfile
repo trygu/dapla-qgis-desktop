@@ -28,7 +28,9 @@ ENV HOME=/home/dapla
 RUN chown -R dapla:dapla /home/dapla /usr/share/novnc
 
 COPY --chown=dapla:dapla ./resources/init.sh /home/dapla
-COPY --chown=dapla:dapla ./resources/ogc.ssb.no.xml /home/dapla
+COPY --chown=dapla:dapla ./resources/kart.ssb.no-wfs.xml /home/dapla
+COPY --chown=dapla:dapla ./resources/kart.ssb.no-wms.xml /home/dapla
+
 
 # Switch to the new user
 USER dapla

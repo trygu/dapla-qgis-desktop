@@ -1,4 +1,0 @@
-<!DOCTYPE connections>
-<qgsWFSConnections version="1.1">
-    <wfs name="ogc.ssb.no" version="2.0.0" invertAxisOrientation="false" pagingenabled="true" pagesize="10000" maxnumfeatures="" ignoreAxisOrientation="false" passwords="" url="https://ogc.ssb.no/wfs.ashx" username=""/>
-</qgsWFSConnections>
