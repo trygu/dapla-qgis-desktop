@@ -11,18 +11,20 @@ sleep 5
 export X11_XFT_ANTIALIAS=1
 export X11_XFT_RGBA=rgb
 export X11_XFT_HINTING=1
-export X11_XFT_HINTSTYLE=hintslight
+export X11_XFT_HINTSTYLE=hintmedium
 
 # Disable access control for X11
 xhost +
 
 # Start Openbox
 openbox-session &
+sleep 5
 
 # Start VNC server
 x11vnc -forever -nopw -create -display :1 &
 
 # Start noVNC
 /usr/share/novnc/utils/launch.sh --vnc localhost:5900 --listen 6080 &
+#/usr/share/novnc/utils/novnc_proxy --vnc localhost:5900 --listen 6080 &
 
 /usr/bin/qgis
