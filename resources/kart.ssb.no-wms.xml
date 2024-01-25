@@ -1,4 +1,4 @@
 <!DOCTYPE connections>
-<qgsWFSConnections version="1.0">
+<qgsWMSConnections version="1.0">
     <wms name="kart.ssb.no (WMS)" ignoreGetFeatureInfoURI="false" ignoreGetMapURI="false" password="" invertAxisOrientation="false" dpiMode="7" ignoreAxisOrientation="false" url="https://ogc.ssb.no/wms.ashx" referer="" smoothPixmapTransform="false" username=""/>
-</qgsWFSConnections>
+</qgsWMSConnections>
