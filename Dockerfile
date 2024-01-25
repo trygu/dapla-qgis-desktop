@@ -31,6 +31,8 @@ COPY --chown=dapla:dapla ./resources/init.sh /home/dapla
 COPY --chown=dapla:dapla ./resources/kart.ssb.no-wfs.xml /home/dapla
 COPY --chown=dapla:dapla ./resources/kart.ssb.no-wms.xml /home/dapla
 
+# Change owner 
+RUN chown -R dapla:dapla /usr/share/qgis
 
 # Switch to the new user
 USER dapla
