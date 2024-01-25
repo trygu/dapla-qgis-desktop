@@ -20,10 +20,9 @@ xhost +
 openbox-session &
 
 # Start VNC server
-x11vnc -forever -nopw -create -display :1 &
+x11vnc -ncache 10 -forever -nopw -create -display :1 &
 
 # Start noVNC
 /usr/share/novnc/utils/launch.sh --vnc localhost:5900 --listen 6080 &
 
 /usr/bin/qgis
-
