@@ -12,7 +12,6 @@ To use this Docker container and run QGIS, follow these steps:
 
 1. **Prerequisites**:
    - Install Docker: [Docker Installation Guide](https://docs.docker.com/get-docker/)
-   - Ensure you have `docker-compose` installed.
 
 2. **Clone this Repository**:
    ```bash
