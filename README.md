@@ -22,26 +22,20 @@ To use this Docker container and run QGIS, follow these steps:
 3. **Build the Docker Container**:
    ```bash
    cd dapla-qgis-desktop
-   docker-compose build
+   docker build --platform linux/amd64 -t myimage/qgis-desktop:1.0 .
    ```
 
 4. **Run the Docker Container**:
    ```bash
-   docker-compose up -d
+   docker run -p 6080:6080 myimage/qgis-desktop:1.0
    ```
 
 5. **Access QGIS**:
    - Open your web browser and navigate to `http://localhost:6080/`.
-   - You will be greeted with a noVNC login page; use the default password provided in the `docker-compose.yml` file (make sure to change it for production use).
 
 6. **Start Using QGIS**:
    - Once logged in, you will have access to a QGIS desktop environment running in the container. You can start creating, editing, and analyzing geographic data right from your browser.
 
-7. **Clean Up**:
-   - When you're finished, you can stop and remove the container using:
-   ```bash
-   docker-compose down
-   ```
 
 ## Customize and Extend
 
