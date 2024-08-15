@@ -21,7 +21,7 @@ To use this Docker container and run QGIS, follow these steps:
 3. **Build the Docker Container**:
    ```bash
    cd dapla-qgis-desktop
-   docker build --platform linux/amd64 -t myimage/qgis-desktop:1.0 .
+   docker build --platform linux/amd64 -t myimage/dapla-qgis-desktop:1.0 .
    ```
 
 4. **Run the Docker Container**:

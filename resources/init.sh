@@ -13,11 +13,11 @@ export X11_XFT_RGBA=rgb
 export X11_XFT_HINTING=1
 export X11_XFT_HINTSTYLE=hintmedium
  
-export PYTHONPATH=/home/dapla/miniconda3/lib/python3.12/site-packages:$PYTHONPATH
-export PATH="~/miniconda3/bin:$PATH"
+export PYTHONPATH=/home/dapla/.miniconda3/lib/python3.12/site-packages:$PYTHONPATH
+export PATH="~/.miniconda3/bin:$PATH"
 
 # Source the Conda setup script to set up the shell for Conda
-source ~/miniconda3/etc/profile.d/conda.sh
+source ~/.miniconda3/etc/profile.d/conda.sh
 
 # Activate your environment
 conda activate base
@@ -35,5 +35,4 @@ x11vnc -forever -nopw -create -display :1 &
 /usr/share/novnc/utils/novnc_proxy --vnc localhost:5900 --listen 6080 &
 
 # Start QGis from the conda installation
-conda run -n base --no-capture-output ~/miniconda3/bin/qgis
-#~/miniconda3/bin/qgis
+conda run -n base --no-capture-output ~/.miniconda3/bin/qgis
