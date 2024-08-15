@@ -1,0 +1,59 @@
+name: Build, Push, and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Extract VERSION from Dockerfile
+      id: version
+      run: |
+        VERSION=$(grep "^ARG VERSION=" Dockerfile | cut -d '=' -f2)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Check if version has changed
+      id: check_version
+      run: |
+        if git diff HEAD^ HEAD Dockerfile | grep "^ARG VERSION="; then
+          echo "Version changed"
+          echo "VERSION_CHANGED=true" >> $GITHUB_ENV
+        else
+          echo "No version change"
+          echo "VERSION_CHANGED=false" >> $GITHUB_ENV
+
+    - name: Log in to GitHub Container Registry
+      if: env.VERSION_CHANGED == 'true'
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      if: env.VERSION_CHANGED == 'true'
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: |
+          ghcr.io/${{ github.repository_owner }}/dapla-qgis-desktop:latest
+          ghcr.io/${{ github.repository_owner }}/dapla-qgis-desktop:${{ env.VERSION }}
+
+    - name: Create GitHub Release
+      if: env.VERSION_CHANGED == 'true'
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }}
+        body: Release of version ${{ env.VERSION }}
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
