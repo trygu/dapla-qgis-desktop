@@ -14,26 +14,28 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Extract VERSION from Dockerfile
-      id: version
+      id: extract_version
       run: |
         VERSION=$(grep "^ARG VERSION=" Dockerfile | cut -d '=' -f2)
         echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "Extracted version: $VERSION"
 
     - name: Check if version has changed
       id: check_version
       run: |
-       if [ $(git rev-parse --is-inside-work-tree) ] && git rev-parse HEAD~1 >/dev/null 2>&1; then
-         if git diff HEAD~1 HEAD Dockerfile | grep "^ARG VERSION="; then
-          echo "Version changed"
-          echo "VERSION_CHANGED=true" >> $GITHUB_ENV
-           else
-          echo "No version change"
-          echo "VERSION_CHANGED=false" >> $GITHUB_ENV
-         fi
+        if git show HEAD~1:Dockerfile >/dev/null 2>&1; then
+          if git diff HEAD~1 Dockerfile | grep "^ARG VERSION="; then
+            echo "Version changed"
+            echo "VERSION_CHANGED=true" >> $GITHUB_ENV
+          else
+            echo "No version change"
+            echo "VERSION_CHANGED=false" >> $GITHUB_ENV
+          fi
         else
-          echo "No previous commit; assuming version change."
+          echo "No previous commit or Dockerfile doesn't exist in HEAD~1; assuming version change."
           echo "VERSION_CHANGED=true" >> $GITHUB_ENV
         fi
+        echo "Detected version: $VERSION"
 
     - name: Log in to GitHub Container Registry
       if: env.VERSION_CHANGED == 'true'
