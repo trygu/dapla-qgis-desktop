@@ -22,13 +22,13 @@ jobs:
     - name: Check if version has changed
       id: check_version
       run: |
-        if git diff HEAD^ HEAD Dockerfile | grep "^ARG VERSION="; then
+        if git diff HEAD~1 HEAD Dockerfile | grep "^ARG VERSION="; then
           echo "Version changed"
           echo "VERSION_CHANGED=true" >> $GITHUB_ENV
         else
           echo "No version change"
           echo "VERSION_CHANGED=false" >> $GITHUB_ENV
-        fi
+        fi      
 
     - name: Log in to GitHub Container Registry
       if: env.VERSION_CHANGED == 'true'
