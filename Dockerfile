@@ -1,4 +1,4 @@
-ARG VERSION=v0.31.5
+ARG VERSION=v0.31.6
 # Use the official Ubuntu base image
 FROM ubuntu:24.04
 
