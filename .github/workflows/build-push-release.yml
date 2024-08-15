@@ -3,7 +3,7 @@ name: Build, Push, and Release
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -20,22 +20,15 @@ jobs:
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         echo "Extracted version: $VERSION"
 
-    - name: Check if version has changed
-      id: check_version
+    - name: Check if tag exists
+      id: check_tag
       run: |
-        if git show HEAD~1:Dockerfile >/dev/null 2>&1; then
-          if git diff HEAD~1 Dockerfile | grep "^ARG VERSION="; then
-            echo "Version changed"
-            echo "VERSION_CHANGED=true" >> $GITHUB_ENV
-          else
-            echo "No version change"
-            echo "VERSION_CHANGED=false" >> $GITHUB_ENV
-          fi
+        if git rev-parse "refs/tags/$VERSION" >/dev/null 2>&1; then
+          echo "Tag $VERSION already exists."
+          echo "VERSION_CHANGED=false" >> $GITHUB_ENV
         else
-          echo "No previous commit or Dockerfile doesn't exist in HEAD~1; assuming version change."
+          echo "Tag $VERSION does not exist."
           echo "VERSION_CHANGED=true" >> $GITHUB_ENV
-        fi
-        echo "Detected version: $VERSION"
 
     - name: Log in to GitHub Container Registry
       if: env.VERSION_CHANGED == 'true'
