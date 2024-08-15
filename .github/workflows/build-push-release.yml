@@ -28,6 +28,7 @@ jobs:
         else
           echo "No version change"
           echo "VERSION_CHANGED=false" >> $GITHUB_ENV
+        fi
 
     - name: Log in to GitHub Container Registry
       if: env.VERSION_CHANGED == 'true'
