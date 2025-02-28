@@ -15,18 +15,18 @@ To use this Docker container and run QGIS, follow these steps:
 
 2. **Clone this Repository**:
    ```bash
-   git clone https://github.com/statisticsnorway/dapla-qgis-desktop.git
+   git clone https://github.com/trygu/dapla-qgis-desktop.git
    ```
 
 3. **Build the Docker Container**:
    ```bash
    cd dapla-qgis-desktop
-   docker build --platform linux/amd64 -t myimage/dapla-qgis-desktop:1.0 .
+   docker build --platform linux/amd64 -t trygu/dapla-qgis-desktop:1.0 .
    ```
 
 4. **Run the Docker Container**:
    ```bash
-   docker run -p 6080:6080 myimage/qgis-desktop:1.0
+   docker run -p 6080:6080 trygu/qgis-desktop:1.0
    ```
 
 5. **Access QGIS**:
