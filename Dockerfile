@@ -27,19 +27,26 @@ COPY --chown=onyxia:users ./resources/*.parquet /home/onyxia/
 ENV HOME=/home/onyxia
 
 # Create the directories
-RUN chown -R onyxia:users /home/onyxia /usr/share/novnc
+RUN mkdir -p /home/onyxia/.cache/dconf && \
+    mkdir -p /home/onyxia/.local/share/QGIS/QGIS3/profiles/default/python && \
+    mkdir -p /home/onyxia/.local/share/QGIS/QGIS3/profiles/default && \
+    touch /home/onyxia/.local/share/QGIS/QGIS3/profiles/default/qgis.db && \
+    chown -R onyxia:users /home/onyxia /usr/share/novnc
 
 COPY --chown=onyxia:users ./resources/init.sh /home/onyxia
 
 # Install conda and install qgis using conda, as the support is better for GeoParquet.
-ADD https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh /tmp/miniconda.sh
-RUN chmod +x /tmp/miniconda.sh && \
-    mkdir -p ~/.miniconda3 && \
-    bash /tmp/miniconda.sh -b -u -p ~/.miniconda3 && \
-    rm -rf /tmp/miniconda.sh && \
-    ~/.miniconda3/bin/conda init bash && \
-    ~/.miniconda3/bin/conda install -c conda-forge pyqt qgis gdal libgdal-arrow-parquet && \
-    mkdir -p /home/onyxia/.local/share/QGIS/QGIS3/profiles/default/QGIS/ 
+ADD https://github.com/conda-forge/miniforge/releases/download/24.11.3-2/Miniforge3-24.11.3-2-Linux-aarch64.sh /tmp/mambaforge.sh
+RUN chmod +x /tmp/mambaforge.sh && \
+    mkdir -p /opt/conda && \
+    bash /tmp/mambaforge.sh -b -u -p /opt/conda && \
+    rm -rf /tmp/mambaforge.sh && \
+    /opt/conda/bin/conda init bash && \
+    /opt/conda/bin/conda install -c conda-forge pyqt qgis gdal libgdal-arrow-parquet && \
+    mkdir -p /home/onyxia/.local/share/QGIS/QGIS3/profiles/default/QGIS/
+
+# Set environment path
+ENV PATH="/opt/conda/bin:$PATH"
 
 # Switch to the new user
 USER onyxia
